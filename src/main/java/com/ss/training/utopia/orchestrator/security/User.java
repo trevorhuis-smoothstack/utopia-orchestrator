@@ -16,10 +16,11 @@ public class User {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Integer userId;
 	private String username;
 	private String password;
-	private boolean enabled;
-	private String roles;
+	private String role;
+	private String name;
 
 	public String getUsername() {
 		return username;
@@ -38,19 +39,23 @@ public class User {
 	}
 
 	public boolean isEnabled() {
-		return enabled;
+		return true;
 	}
 
-	public void setEnabled(boolean enabled) {
-		this.enabled = enabled;
+	public String getRole() {
+		return role;
 	}
 
-	public String getRoles() {
-		return roles;
+	public void setRole(String role) {
+		this.role = role;
 	}
 
-	public void setRoles(String roles) {
-		this.roles = roles;
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 	
 }
