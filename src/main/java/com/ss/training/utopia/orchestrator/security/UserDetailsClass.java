@@ -18,13 +18,11 @@ public class UserDetailsClass implements UserDetails {
 	private static final long serialVersionUID = 1557339291337891604L;
 	private String username;
 	private String password;
-	private boolean enabled;
 	private List<GrantedAuthority> authorities;
 
 	public UserDetailsClass(User user) {
 		this.username = user.getUsername();
 		this.password = user.getPassword();
-		this.enabled = user.isEnabled();
 		this.authorities = Arrays.stream(user.getRole().split(",")).map(role -> "ROLE_" + role)
 				.map(SimpleGrantedAuthority::new).collect(Collectors.toList());
 	}
@@ -61,7 +59,7 @@ public class UserDetailsClass implements UserDetails {
 
 	@Override
 	public boolean isEnabled() {
-		return enabled;
+		return true;
 	}
 
 }

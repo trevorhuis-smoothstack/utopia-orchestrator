@@ -21,7 +21,7 @@ import org.springframework.web.client.RestTemplate;
 @RestController
 @CrossOrigin
 @RequestMapping("/agent")
-public class AgentController {
+public class AgentOrchestrator {
 
     private final String agentBase = "http://localhost:8082/agent";
 

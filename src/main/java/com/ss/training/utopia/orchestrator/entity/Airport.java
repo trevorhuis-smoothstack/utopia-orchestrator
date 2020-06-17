@@ -29,10 +29,6 @@ public class Airport implements Serializable {
 		return airportId;
 	}
 
-	public void setAirportId(Long airportId) {
-		this.airportId = airportId;
-	}
-
 	public String getName() {
 		return name;
 	}
@@ -47,7 +43,6 @@ public class Airport implements Serializable {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((airportId == null) ? 0 : airportId.hashCode());
-		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		return result;
 	}
 
@@ -64,11 +59,6 @@ public class Airport implements Serializable {
 			if (other.airportId != null)
 				return false;
 		} else if (!airportId.equals(other.airportId))
-			return false;
-		if (name == null) {
-			if (other.name != null)
-				return false;
-		} else if (!name.equals(other.name))
 			return false;
 		return true;
 	}
