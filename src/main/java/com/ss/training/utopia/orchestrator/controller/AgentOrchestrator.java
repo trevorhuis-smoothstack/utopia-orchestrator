@@ -53,7 +53,7 @@ public class AgentOrchestrator {
 	@GetMapping(path = "/bookings/{agentId}")
 	public ResponseEntity<Booking[]> readBookings(@PathVariable int agentId,RequestEntity<?> request) {
 		try {
-			return restTemplate.exchange(agentBase + "/flights", HttpMethod.GET, request, Booking[].class);
+			return restTemplate.exchange(agentBase + "/bookings/" + agentId, HttpMethod.GET, request, Booking[].class);
 		} catch (RestClientResponseException e) {
 			return new ResponseEntity<Booking[]>((Booking[]) null, HttpStatus.valueOf(e.getRawStatusCode()));
 		}

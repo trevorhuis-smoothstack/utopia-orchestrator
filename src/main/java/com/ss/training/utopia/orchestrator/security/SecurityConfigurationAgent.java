@@ -43,7 +43,8 @@ public class SecurityConfigurationAgent extends WebSecurityConfigurerAdapter {
 		httpSecurity.cors().and().csrf().disable().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
 				.addFilter(new AuthenticationFilter(authenticationManager()))
 				.addFilter(new AuthorizationFilter(authenticationManager(), this.userRepository)).authorizeRequests()
-				.antMatchers("/agent/*").hasRole("AGENT").and().httpBasic();
+				.antMatchers("/agent/*").hasRole("AGENT")
+				.antMatchers("/agent/*/*").hasRole("AGENT").and().httpBasic();
 	}
 
 	/**
