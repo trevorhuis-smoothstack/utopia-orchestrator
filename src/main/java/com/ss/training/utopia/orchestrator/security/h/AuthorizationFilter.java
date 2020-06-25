@@ -1,4 +1,5 @@
-package com.ss.training.utopia.orchestrator.security;
+package com.ss.training.utopia.orchestrator.security.h;
+
 import static com.auth0.jwt.algorithms.Algorithm.HMAC512;
 
 import java.io.IOException;
@@ -8,6 +9,12 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.auth0.jwt.JWT;
+import com.ss.training.utopia.orchestrator.security.JwtProperties;
+import com.ss.training.utopia.orchestrator.security.User;
+import com.ss.training.utopia.orchestrator.security.UserDetailsClass;
+import com.ss.training.utopia.orchestrator.security.UserRepository;
+
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -15,10 +22,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
-import com.auth0.jwt.JWT;
 
 /**
- * @author Justin O'Brien
  * @author Trevor Huis in 't Veld
  */
 public class AuthorizationFilter extends BasicAuthenticationFilter {

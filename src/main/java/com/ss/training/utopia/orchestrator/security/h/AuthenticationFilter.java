@@ -1,4 +1,4 @@
-package com.ss.training.utopia.orchestrator.security;
+package com.ss.training.utopia.orchestrator.security.h;
 
 import static com.auth0.jwt.algorithms.Algorithm.HMAC512;
 
@@ -13,6 +13,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.auth0.jwt.JWT;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.ss.training.utopia.orchestrator.security.JwtProperties;
+import com.ss.training.utopia.orchestrator.security.UserCredentials;
+import com.ss.training.utopia.orchestrator.security.UserDetailsClass;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,7 +26,6 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 /**
- * @author Justin O'Brien
  * @author Trevor Huis in 't Veld
  */
 public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
