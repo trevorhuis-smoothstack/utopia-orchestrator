@@ -3,6 +3,7 @@ package com.ss.training.utopia.orchestrator.controller;
 import com.ss.training.utopia.orchestrator.entity.Airport;
 import com.ss.training.utopia.orchestrator.entity.Booking;
 import com.ss.training.utopia.orchestrator.entity.Flight;
+import com.ss.training.utopia.orchestrator.entity.User;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
@@ -51,11 +52,29 @@ public class AgentOrchestrator {
 	}
 
 	@GetMapping(path = "/bookings/{agentId}")
-	public ResponseEntity<Booking[]> readBookings(@PathVariable int agentId,RequestEntity<?> request) {
+	public ResponseEntity<Booking[]> readBookings(@PathVariable Long agentId, RequestEntity<?> request) {
 		try {
 			return restTemplate.exchange(agentBase + "/bookings/" + agentId, HttpMethod.GET, request, Booking[].class);
 		} catch (RestClientResponseException e) {
 			return new ResponseEntity<Booking[]>((Booking[]) null, HttpStatus.valueOf(e.getRawStatusCode()));
+		}
+	}
+
+	@GetMapping(path = "/users/{username}")
+	public ResponseEntity<User> readUser(@PathVariable String username, RequestEntity<?> request) {
+		try {
+			return restTemplate.exchange(agentBase + "/users/" + username, HttpMethod.GET, request, User.class);
+		} catch (RestClientResponseException e) {
+			return new ResponseEntity<User>((User) null, HttpStatus.valueOf(e.getRawStatusCode()));
+		}
+	}
+
+	@PostMapping(path = "/user")
+	public ResponseEntity<User> createUser(RequestEntity<User> request) {
+		try {
+			return restTemplate.exchange(agentBase + "/user", HttpMethod.POST, request, User.class);
+		} catch (RestClientResponseException e) {
+			return new ResponseEntity<User>(request.getBody(), HttpStatus.valueOf(e.getRawStatusCode()));
 		}
 	}
 
