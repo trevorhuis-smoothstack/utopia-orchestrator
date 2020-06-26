@@ -10,22 +10,31 @@ import javax.persistence.Table;
  * @author Trevor Huis in 't Veld
  */
 @Entity
-@Table(name="tbl_airport")
+@Table(name = "tbl_airport")
 public class Airport implements Serializable {
-    
-    /**
-	 *  
-	 */
-	private static final long serialVersionUID = 2302957380915149824L;
+
+	private static final long serialVersionUID = 7728147996555377395L;
 
 	@Id
-    @Column(name="airportId")
+	@Column(name = "airportId")
 	private Long airportId;
-	
-    @Column(name="name")
-    private String name;
 
-    public Long getAirportId() {
+	@Column(name = "name")
+	private String name;
+
+	public Airport() {
+	}
+
+	/**
+	 * @param airportId
+	 * @param name
+	 */
+	public Airport(Long airportId, String name) {
+		this.airportId = airportId;
+		this.name = name;
+	}
+
+	public Long getAirportId() {
 		return airportId;
 	}
 
@@ -35,9 +44,8 @@ public class Airport implements Serializable {
 
 	public void setName(String name) {
 		this.name = name;
-    }
-    
-    
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -63,8 +71,4 @@ public class Airport implements Serializable {
 		return true;
 	}
 
-	public Airport(Long airportId, String name) {
-		this.airportId = airportId;
-		this.name = name;
-	}
 }
