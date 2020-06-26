@@ -46,42 +46,75 @@ public class CounterOrchestrator {
 
 	@GetMapping("/users/{username}")
 	public ResponseEntity<User> getUser(@PathVariable String username) {
+		try {
+			return template.exchange(baseUrl+"", HttpMethod., request, .class)
+		}catch (RestClientResponseException e) {
+			return new ResponseEntity<>(null, HttpStatus.valueOf(e.getRawStatusCode()));
+		}
 	}
 
 	@GetMapping("/airports")
 	public ResponseEntity<Airport[]> getAllAirports() {
-
+		try {
+			return template.exchange(baseUrl+"", HttpMethod., request, .class)
+		}catch (RestClientResponseException e) {
+			return new ResponseEntity<>(null, HttpStatus.valueOf(e.getRawStatusCode()));
+		}
 	}
 
 	@GetMapping("/flights/cancellable/traveler/{travelerId}")
 	public ResponseEntity<Flight[]> getCancellablyBookedFlights(@PathVariable Long travelerId) {
-
+		try {
+			return template.exchange(baseUrl+"", HttpMethod., request, .class)
+		}catch (RestClientResponseException e) {
+			return new ResponseEntity<>(null, HttpStatus.valueOf(e.getRawStatusCode()));
+		}
 	}
 
 	@PutMapping("/bookings/traveler/{travelerId}/flight/{flightId}")
 	public ResponseEntity<Object> cancelBooking(@PathVariable Long travelerId, @PathVariable long flightId) {
-
+		try {
+			return template.exchange(baseUrl+"", HttpMethod., request, .class)
+		}catch (RestClientResponseException e) {
+			return new ResponseEntity<>(null, HttpStatus.valueOf(e.getRawStatusCode()));
+		}
 	}
 
 	@PostMapping("/user")
 	public ResponseEntity<User> createUser(@RequestBody User user) {
-
+		try {
+			return template.exchange(baseUrl+"", HttpMethod., request, .class)
+		}catch (RestClientResponseException e) {
+			return new ResponseEntity<>(null, HttpStatus.valueOf(e.getRawStatusCode()));
+		}
 	}
 
 	@RequestMapping(method = RequestMethod.HEAD, path = "/user/{username}")
 	public ResponseEntity<Object> usernameAvailable(@PathVariable String username) {
-
+		try {
+			return template.exchange(baseUrl+"", HttpMethod., request, .class)
+		}catch (RestClientResponseException e) {
+			return new ResponseEntity<>(null, HttpStatus.valueOf(e.getRawStatusCode()));
+		}
 	}
 
 	@GetMapping("flights/bookable/departure/{departId}/arrival/{arriveId}/traveler/{travelerId}")
 	public ResponseEntity<Flight[]> getBookableFlights(@PathVariable Long departId, @PathVariable Long arriveId,
 			@PathVariable Long travelerId) {
-
+		try {
+			return template.exchange(baseUrl+"", HttpMethod., request, .class)
+		}catch (RestClientResponseException e) {
+			return new ResponseEntity<>(null, HttpStatus.valueOf(e.getRawStatusCode()));
+		}
 	}
 
 	@PostMapping("/booking")
 	public ResponseEntity<Object> bookFlight(@RequestBody Booking booking) {
-
+		try {
+			return template.exchange(baseUrl+"", HttpMethod., request, .class)
+		}catch (RestClientResponseException e) {
+			return new ResponseEntity<>(null, HttpStatus.valueOf(e.getRawStatusCode()));
+		}
 	}
 
 }
