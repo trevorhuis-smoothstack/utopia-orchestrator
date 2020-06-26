@@ -17,10 +17,10 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestClientResponseException;
 import org.springframework.web.client.RestTemplate;
 
-import com.ss.training.utopia.orchestrator.counter.entity.Airport;
-import com.ss.training.utopia.orchestrator.counter.entity.Booking;
-import com.ss.training.utopia.orchestrator.counter.entity.Flight;
-import com.ss.training.utopia.orchestrator.counter.entity.User;
+import com.ss.training.utopia.orchestrator.entity.Airport;
+import com.ss.training.utopia.orchestrator.entity.Booking;
+import com.ss.training.utopia.orchestrator.entity.Flight;
+import com.ss.training.utopia.orchestrator.security.User;
 
 /**
  * @author Justin O'Brien
