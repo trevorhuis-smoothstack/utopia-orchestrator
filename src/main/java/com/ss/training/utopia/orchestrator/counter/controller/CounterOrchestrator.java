@@ -38,7 +38,7 @@ public class CounterOrchestrator {
 	@RequestMapping(method = RequestMethod.HEAD, path = "/traveler/{username}")
 	public ResponseEntity<Object> userIsTraveler(@PathVariable String username, RequestEntity<?> request) {
 		try {
-			return template.exchange(baseUrl + "/traveler/{username}", HttpMethod.HEAD, request, Object.class);
+			return template.exchange(baseUrl + "/traveler/" + username, HttpMethod.HEAD, request, Object.class);
 		} catch (RestClientResponseException e) {
 			return new ResponseEntity<Object>(null, HttpStatus.valueOf(e.getRawStatusCode()));
 		}
@@ -47,7 +47,7 @@ public class CounterOrchestrator {
 	@GetMapping("/users/{username}")
 	public ResponseEntity<User> getUser(@PathVariable String username, RequestEntity<?> request) {
 		try {
-			return template.exchange(baseUrl + "/users/{username}", HttpMethod.GET, request, User.class);
+			return template.exchange(baseUrl + "/users/" + username, HttpMethod.GET, request, User.class);
 		} catch (RestClientResponseException e) {
 			return new ResponseEntity<User>((User) null, HttpStatus.valueOf(e.getRawStatusCode()));
 		}
@@ -66,7 +66,7 @@ public class CounterOrchestrator {
 	public ResponseEntity<Flight[]> getCancellablyBookedFlights(@PathVariable Long travelerId,
 			RequestEntity<?> request) {
 		try {
-			return template.exchange(baseUrl + "/flights/cancellable/traveler/{travelerId}", HttpMethod.GET, request,
+			return template.exchange(baseUrl + "/flights/cancellable/traveler/" + travelerId, HttpMethod.GET, request,
 					Flight[].class);
 		} catch (RestClientResponseException e) {
 			return new ResponseEntity<Flight[]>((Flight[]) null, HttpStatus.valueOf(e.getRawStatusCode()));
@@ -77,8 +77,8 @@ public class CounterOrchestrator {
 	public ResponseEntity<Object> cancelBooking(@PathVariable Long travelerId, @PathVariable Long flightId,
 			RequestEntity<?> request) {
 		try {
-			return template.exchange(baseUrl + "/bookings/traveler/{travelerId}/flight/{flightId}", HttpMethod.PUT,
-					request, Object.class);
+			return template.exchange(baseUrl + "/bookings/traveler/" + travelerId + "/flight/" + flightId,
+					HttpMethod.PUT, request, Object.class);
 		} catch (RestClientResponseException e) {
 			return new ResponseEntity<Object>(null, HttpStatus.valueOf(e.getRawStatusCode()));
 		}
@@ -96,7 +96,7 @@ public class CounterOrchestrator {
 	@RequestMapping(method = RequestMethod.HEAD, path = "/user/{username}")
 	public ResponseEntity<Object> usernameAvailable(@PathVariable String username, RequestEntity<?> request) {
 		try {
-			return template.exchange(baseUrl + "/user/{username}", HttpMethod.HEAD, request, Object.class);
+			return template.exchange(baseUrl + "/user/" + username, HttpMethod.HEAD, request, Object.class);
 		} catch (RestClientResponseException e) {
 			return new ResponseEntity<Object>(null, HttpStatus.valueOf(e.getRawStatusCode()));
 		}
@@ -106,9 +106,8 @@ public class CounterOrchestrator {
 	public ResponseEntity<Flight[]> getBookableFlights(@PathVariable Long departId, @PathVariable Long arriveId,
 			@PathVariable Long travelerId, RequestEntity<?> request) {
 		try {
-			return template.exchange(
-					baseUrl + "flights/bookable/departure/{departId}/arrival/{arriveId}/traveler/{travelerId}",
-					HttpMethod.GET, request, Flight[].class);
+			return template.exchange(baseUrl + "flights/bookable/departure/" + departId + "/arrival/" + arriveId
+					+ "/traveler/" + travelerId, HttpMethod.GET, request, Flight[].class);
 		} catch (RestClientResponseException e) {
 			return new ResponseEntity<Flight[]>((Flight[]) null, HttpStatus.valueOf(e.getRawStatusCode()));
 		}
