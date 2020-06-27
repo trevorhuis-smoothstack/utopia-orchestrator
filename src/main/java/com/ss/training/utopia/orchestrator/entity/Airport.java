@@ -13,15 +13,18 @@ import javax.persistence.Table;
 @Table(name = "tbl_airport")
 public class Airport implements Serializable {
 
-	private static final long serialVersionUID = 7728147996555377395L;
+	private static final long serialVersionUID = 3071310522090611039L;
 
 	@Id
-	@Column(name = "airportId")
+	@Column
 	private Long airportId;
 
-	@Column(name = "name")
+	@Column
 	private String name;
 
+	/**
+	 * 
+	 */
 	public Airport() {
 	}
 
@@ -34,16 +37,25 @@ public class Airport implements Serializable {
 		this.name = name;
 	}
 
-	public Long getAirportId() {
-		return airportId;
-	}
-
+	/**
+	 * @return the name
+	 */
 	public String getName() {
 		return name;
 	}
 
+	/**
+	 * @param name the name to set
+	 */
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	/**
+	 * @return the airportId
+	 */
+	public Long getAirportId() {
+		return airportId;
 	}
 
 	@Override
