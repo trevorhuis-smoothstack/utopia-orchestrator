@@ -1,7 +1,7 @@
 package com.ss.training.utopia.orchestrator.security;
 
 /**
- * @author Justin O'Brien
+ * @author Trevor Huis in 't Veld
  */
 public class UserCredentials {
 
