@@ -16,7 +16,8 @@ import com.ss.training.utopia.orchestrator.security.User;
  */
 public class UserDetailsClass implements UserDetails {
 
-	private static final long serialVersionUID = 1557339291337891604L;
+	private static final long serialVersionUID = 8245498234503068535L;
+
 	private String username;
 	private String password;
 	private List<GrantedAuthority> authorities;

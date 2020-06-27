@@ -1,4 +1,4 @@
-package com.ss.training.utopia.orchestrator.security;
+package com.ss.training.utopia.orchestrator.counter.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -15,22 +15,22 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 /**
- * @author Trevor Huis in 't Veld
+ * @author Justin O'Brien
  */
 @Configuration
-@Order(2)
+@Order(1)
 @EnableWebSecurity
-public class SecurityConfigurationAgent extends WebSecurityConfigurerAdapter {
+public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	@Autowired
-	UserDetailsServiceClass userDetailsService;
+	UserDetailsServiceClassCounter userDetailsService;
 
 	@Autowired
-	UserRepository userRepository;
+	UserRepositoryCounter userRepository;
 
 	@Override
 	protected void configure(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
-		authenticationManagerBuilder.authenticationProvider(authenticationProvider());
+		authenticationManagerBuilder.authenticationProvider(authenticationProviderCounter());
 	}
 
 	@Override
@@ -38,16 +38,16 @@ public class SecurityConfigurationAgent extends WebSecurityConfigurerAdapter {
 		httpSecurity.csrf().disable().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
 				.addFilter(new AuthenticationFilter(authenticationManager()))
 				.addFilter(new AuthorizationFilter(authenticationManager(), this.userRepository)).authorizeRequests()
-				.antMatchers("/agent/*").hasRole("AGENT").and().httpBasic();
+				.antMatchers("/counter/*").hasRole("COUNTER").and().httpBasic();
 	}
 
 	/**
 	 * @return
 	 */
 	@Bean
-	DaoAuthenticationProvider authenticationProvider() {
+	DaoAuthenticationProvider authenticationProviderCounter() {
 		DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
-		daoAuthenticationProvider.setPasswordEncoder(passwordEncoder());
+		daoAuthenticationProvider.setPasswordEncoder(passwordEncoderCounter());
 		daoAuthenticationProvider.setUserDetailsService(this.userDetailsService);
 		return daoAuthenticationProvider;
 	}
@@ -56,7 +56,7 @@ public class SecurityConfigurationAgent extends WebSecurityConfigurerAdapter {
 	 * @return
 	 */
 	@Bean
-	public PasswordEncoder passwordEncoder() {
+	public PasswordEncoder passwordEncoderCounter() {
 		return new BCryptPasswordEncoder();
 	}
 

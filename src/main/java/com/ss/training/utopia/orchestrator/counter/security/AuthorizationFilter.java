@@ -23,13 +23,13 @@ import com.ss.training.utopia.orchestrator.security.User;
  */
 public class AuthorizationFilter extends BasicAuthenticationFilter {
 
-	private UserRepository userRepository;
+	private UserRepositoryCounter userRepository;
 
 	/**
 	 * @param authenticationManager
 	 * @param userRepository
 	 */
-	public AuthorizationFilter(AuthenticationManager authenticationManager, UserRepository userRepository) {
+	public AuthorizationFilter(AuthenticationManager authenticationManager, UserRepositoryCounter userRepository) {
 		super(authenticationManager);
 		this.userRepository = userRepository;
 	}

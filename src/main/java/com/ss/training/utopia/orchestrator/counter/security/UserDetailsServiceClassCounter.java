@@ -14,10 +14,10 @@ import com.ss.training.utopia.orchestrator.security.User;
  * @author Justin O'Brien
  */
 @Service
-public class UserDetailsServiceClass implements UserDetailsService {
+public class UserDetailsServiceClassCounter implements UserDetailsService {
 
     @Autowired
-	UserRepository userRepository;
+	UserRepositoryCounter userRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

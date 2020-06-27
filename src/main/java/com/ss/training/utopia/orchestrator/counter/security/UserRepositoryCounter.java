@@ -10,7 +10,7 @@ import com.ss.training.utopia.orchestrator.security.User;
 /**
  * @author Justin O'Brien
  */
-public interface UserRepository extends JpaRepository<User, Integer> {
+public interface UserRepositoryCounter extends JpaRepository<User, Integer> {
 
     Optional<User> findByUsername(String username);
 
