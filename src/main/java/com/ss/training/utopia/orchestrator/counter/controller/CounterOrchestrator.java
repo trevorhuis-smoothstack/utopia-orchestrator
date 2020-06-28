@@ -26,7 +26,7 @@ import com.ss.training.utopia.orchestrator.security.User;
  * @author Justin O'Brien
  */
 @RestController
-@CrossOrigin
+@CrossOrigin(origins = "http://localhost:4200/*")
 @RequestMapping("/counter")
 public class CounterOrchestrator {
 
