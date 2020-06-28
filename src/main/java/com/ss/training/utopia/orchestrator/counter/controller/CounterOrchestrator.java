@@ -121,5 +121,14 @@ public class CounterOrchestrator {
 			return new ResponseEntity<Object>(null, HttpStatus.valueOf(e.getRawStatusCode()));
 		}
 	}
+	
+	@RequestMapping(method = RequestMethod.HEAD, path = "/authorized")
+	public ResponseEntity<Object> checkAuthorization(){
+		try {
+			return new ResponseEntity<Object>(null, HttpStatus.NO_CONTENT);
+		} catch (RestClientResponseException e) {
+			return new ResponseEntity<Object>(null, HttpStatus.valueOf(e.getRawStatusCode()));
+		}
+	}
 
 }
