@@ -60,12 +60,48 @@ public class AgentOrchestrator {
 		}
 	}
 
-	@GetMapping(path = "/users/{username}")
+	@GetMapping(path = "/user/username/{username}")
 	public ResponseEntity<User> readUser(@PathVariable String username, RequestEntity<?> request) {
 		try {
-			return restTemplate.exchange(agentBase + "/users/" + username, HttpMethod.GET, request, User.class);
+			return restTemplate.exchange(agentBase + "/user/username/" + username, HttpMethod.GET, request, User.class);
 		} catch (RestClientResponseException e) {
 			return new ResponseEntity<User>((User) null, HttpStatus.valueOf(e.getRawStatusCode()));
+		}
+	}
+
+	@GetMapping(path = "/user/id/{userId}")
+	public ResponseEntity<User> readUserById(@PathVariable Long userId, RequestEntity<?> request) {
+		try {
+			return restTemplate.exchange(agentBase + "/user/id/" + userId, HttpMethod.GET, request, User.class);
+		} catch (RestClientResponseException e) {
+			return new ResponseEntity<User>((User) null, HttpStatus.valueOf(e.getRawStatusCode()));
+		}
+	}
+
+	@PostMapping(path = "/traveler")
+	public ResponseEntity<User> readUserWithPassword(RequestEntity<User> request) {
+		try {
+			return restTemplate.exchange(agentBase + "/traveler", HttpMethod.POST, request, User.class);
+		} catch (RestClientResponseException e) {
+			return new ResponseEntity<User>((User) null, HttpStatus.valueOf(e.getRawStatusCode()));
+		}
+	}
+
+	@GetMapping(path = "/flight/{flightId}")
+	public ResponseEntity<Flight> readFlight(@PathVariable Long flightId, RequestEntity<?> request) {
+		try {
+			return restTemplate.exchange(agentBase + "/flight/" + flightId, HttpMethod.GET, request, Flight.class);
+		} catch (RestClientResponseException e) {
+			return new ResponseEntity<Flight>((Flight) null, HttpStatus.valueOf(e.getRawStatusCode()));
+		}
+	}
+
+	@GetMapping(path = "/airport/{airportId}")
+	public ResponseEntity<Airport> readAirport(@PathVariable Long airportId, RequestEntity<?> request) {
+		try {
+			return restTemplate.exchange(agentBase + "/airport/" + airportId, HttpMethod.GET, request, Airport.class);
+		} catch (RestClientResponseException e) {
+			return new ResponseEntity<Airport>((Airport) null, HttpStatus.valueOf(e.getRawStatusCode()));
 		}
 	}
 
