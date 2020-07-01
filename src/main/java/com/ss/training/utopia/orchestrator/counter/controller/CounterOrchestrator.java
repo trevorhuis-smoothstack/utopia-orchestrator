@@ -26,7 +26,7 @@ import com.ss.training.utopia.orchestrator.security.User;
  * @author Justin O'Brien
  */
 @RestController
-@CrossOrigin
+@CrossOrigin(origins = "http://localhost:4200/*")
 @RequestMapping("/counter")
 public class CounterOrchestrator {
 
@@ -117,6 +117,15 @@ public class CounterOrchestrator {
 	public ResponseEntity<Object> bookFlight(RequestEntity<?> request) {
 		try {
 			return template.exchange(baseUrl + "/booking", HttpMethod.POST, request, Object.class);
+		} catch (RestClientResponseException e) {
+			return new ResponseEntity<Object>(null, HttpStatus.valueOf(e.getRawStatusCode()));
+		}
+	}
+	
+	@RequestMapping(method = RequestMethod.HEAD, path = "/authorized")
+	public ResponseEntity<Object> checkAuthorization(){
+		try {
+			return new ResponseEntity<Object>(null, HttpStatus.NO_CONTENT);
 		} catch (RestClientResponseException e) {
 			return new ResponseEntity<Object>(null, HttpStatus.valueOf(e.getRawStatusCode()));
 		}
