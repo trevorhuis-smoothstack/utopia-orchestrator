@@ -93,12 +93,12 @@ public class TravelerOrchestrator {
 		}
 	}
 	
-	@GetMapping(path="/travelers/{travelerId}/flights/departure/{departId}/arrival/{arriveId}")
-	public ResponseEntity<Flight[]> getAvailableFlights(RequestEntity<Flight[]> request ,@PathVariable Long travelerId, @PathVariable Long departId, @PathVariable Long arriveId) {
+	@GetMapping(path = "/travelers/{travelerId}/bookings")
+	public ResponseEntity<Booking[]> readBookedFlights(RequestEntity<Booking[]> request, @PathVariable Long travelerId) {
 		try {
-			return restTemplate.exchange(travelerBase + "/travelers/"+travelerId+"/flights/departure/"+departId+"/arrival/"+arriveId, HttpMethod.GET, request, Flight[].class);
+			return restTemplate.exchange(travelerBase + "/travelers/"+travelerId+"/bookings", HttpMethod.PUT, request, Booking[].class);
 		} catch (RestClientResponseException e) {
-			return new ResponseEntity<Flight[]>(request.getBody(), HttpStatus.valueOf(e.getRawStatusCode()));
+			return new ResponseEntity<Booking[]>(request.getBody(), HttpStatus.valueOf(e.getRawStatusCode()));
 		}
 	}
 
