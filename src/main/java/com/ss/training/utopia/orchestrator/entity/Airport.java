@@ -10,13 +10,9 @@ import javax.persistence.Table;
  * @author Trevor Huis in 't Veld
  */
 @Entity
-@Table(name="tbl_airport")
+@Table(name = "tbl_airport")
 public class Airport implements Serializable {
- 
 
-	/**
-	 *
-	 */
 	private static final long serialVersionUID = 3071310522090611039L;
 
 	@Id
