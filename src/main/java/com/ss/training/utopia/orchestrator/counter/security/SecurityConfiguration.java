@@ -1,4 +1,4 @@
-package com.ss.training.utopia.orchestrator.security.h;
+package com.ss.training.utopia.orchestrator.counter.security;
 
 import java.util.Arrays;
 
@@ -12,50 +12,48 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-import com.ss.training.utopia.orchestrator.security.UserDetailsServiceClass;
-import com.ss.training.utopia.orchestrator.security.UserRepository;
-
 /**
- * @author Trevor Huis in 't Veld
+ * @author Justin O'Brien
  */
 @Configuration
-@Order(2)
+@Order(1)
 @EnableWebSecurity
-public class SecurityConfigurationAgent extends WebSecurityConfigurerAdapter {
+public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	@Autowired
-	UserDetailsServiceClass userDetailsService;
+	UserDetailsServiceClassCounter userDetailsService;
 
 	@Autowired
-	UserRepository userRepository;
+	UserRepositoryCounter userRepository;
 
 	@Override
 	protected void configure(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
-		authenticationManagerBuilder.authenticationProvider(authenticationProvider());
+		authenticationManagerBuilder.authenticationProvider(authenticationProviderCounter());
 	}
 
 	@Override
 	protected void configure(HttpSecurity httpSecurity) throws Exception {
-		httpSecurity.cors().and().csrf().disable().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
+		httpSecurity.cors().and().csrf().disable().sessionManagement()
+				.sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
 				.addFilter(new AuthenticationFilter(authenticationManager()))
 				.addFilter(new AuthorizationFilter(authenticationManager(), this.userRepository)).authorizeRequests()
-				.antMatchers("/agent/*").hasRole("AGENT")
-				.antMatchers("/agent/*/*").hasRole("AGENT").and().httpBasic();
+				.antMatchers("/counter/**").hasRole("COUNTER").and().httpBasic();
 	}
 
 	/**
 	 * @return
 	 */
 	@Bean
-	DaoAuthenticationProvider authenticationProvider() {
+	DaoAuthenticationProvider authenticationProviderCounter() {
 		DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
-		daoAuthenticationProvider.setPasswordEncoder(passwordEncoder());
+		daoAuthenticationProvider.setPasswordEncoder(passwordEncoderCounter());
 		daoAuthenticationProvider.setUserDetailsService(this.userDetailsService);
 		return daoAuthenticationProvider;
 	}
@@ -64,20 +62,20 @@ public class SecurityConfigurationAgent extends WebSecurityConfigurerAdapter {
 	 * @return
 	 */
 	@Bean
-	public PasswordEncoder passwordEncoder() {
+	public PasswordEncoder passwordEncoderCounter() {
 		return new BCryptPasswordEncoder();
 	}
 
 	@Bean
-    public CorsConfigurationSource corsConfigurationSource() {
-        CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("*"));
-        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
-        configuration.setAllowedHeaders(Arrays.asList("authorization", "content-type", "x-auth-token"));
-        configuration.setExposedHeaders(Arrays.asList("x-auth-token"));
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", configuration);
-        return source;
-    }
+	public CorsConfigurationSource corsConfigurationSourceCounter() {
+		CorsConfiguration configuration = new CorsConfiguration();
+		configuration.setAllowedOrigins(Arrays.asList("*"));
+		configuration.setAllowedMethods(Arrays.asList("HEAD", "GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
+		configuration.setAllowedHeaders(Arrays.asList("authorization", "content-type", "x-auth-token"));
+		configuration.setExposedHeaders(Arrays.asList("authorization"));
+		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+		source.registerCorsConfiguration("/**", configuration);
+		return source;
+	}
 
 }
