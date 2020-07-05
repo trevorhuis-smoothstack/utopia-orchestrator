@@ -5,6 +5,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,6 +27,10 @@ import com.ss.training.utopia.orchestrator.entity.User;
 public class TravelerOrchestrator {
 
     private final String travelerBase = "http://localhost:8083/traveler";
+    
+    @Autowired
+    PasswordEncoder passwordEncoder;
+
 
     @Autowired
 	RestTemplate restTemplate;
@@ -36,6 +41,24 @@ public class TravelerOrchestrator {
 			return restTemplate.exchange(travelerBase + "/travelers/"+travelerId+"/flights/departure/"+departId+"/arrival/"+arriveId, HttpMethod.GET, request, Flight[].class);
 		} catch (RestClientResponseException e) {
 			return new ResponseEntity<Flight[]>((Flight[]) null, HttpStatus.valueOf(e.getRawStatusCode()));
+		}
+	}
+
+	@GetMapping(path="/travelers/{travelerId}/flights")
+	public ResponseEntity<Flight[]> readAllFlight(RequestEntity<?> request, @PathVariable Long travelerId) {
+		try {
+			return restTemplate.exchange(travelerBase + "/travelers/"+travelerId+"/flights", HttpMethod.GET, request, Flight[].class);
+		} catch (RestClientResponseException e) {
+			return new ResponseEntity<Flight[]>((Flight[]) null, HttpStatus.valueOf(e.getRawStatusCode()));
+		}
+	}
+	
+	@GetMapping(path="/flights/{flightId}")
+	public ResponseEntity<Flight> readFlightById(RequestEntity<?> request, @PathVariable Long flightId) {
+		try {
+			return restTemplate.exchange(travelerBase + "/flights/"+flightId, HttpMethod.GET, request, Flight.class);
+		} catch (RestClientResponseException e) {
+			return new ResponseEntity<Flight>((Flight) null, HttpStatus.valueOf(e.getRawStatusCode()));
 		}
 	}
 
@@ -57,8 +80,17 @@ public class TravelerOrchestrator {
 		}
 	}
 
+	@GetMapping(path = "/travelers/{userId}")
+	public ResponseEntity<User> readUserById(@PathVariable Long userId, RequestEntity<?> request) {
+		try {
+			return restTemplate.exchange(travelerBase + "/users/" + userId, HttpMethod.GET, request, User.class);
+		} catch (RestClientResponseException e) {
+			return new ResponseEntity<User>((User) null, HttpStatus.valueOf(e.getRawStatusCode()));
+		}
+	}
+
 	@GetMapping(path = "/users/{username}")
-	public ResponseEntity<User> readUser(@PathVariable String username, RequestEntity<?> request) {
+	public ResponseEntity<User> readUserByUsername(@PathVariable String username, RequestEntity<?> request) {
 		try {
 			return restTemplate.exchange(travelerBase + "/users/" + username, HttpMethod.GET, request, User.class);
 		} catch (RestClientResponseException e) {
@@ -66,10 +98,10 @@ public class TravelerOrchestrator {
 		}
 	}
 
-	@PostMapping(path = "/user")
+	@PostMapping(path = "/users")
 	public ResponseEntity<User> createUser(RequestEntity<User> request) {
 		try {
-			return restTemplate.exchange(travelerBase + "/user", HttpMethod.POST, request, User.class);
+			return restTemplate.exchange(travelerBase + "/users", HttpMethod.POST, request, User.class);
 		} catch (RestClientResponseException e) {
 			return new ResponseEntity<User>(request.getBody(), HttpStatus.valueOf(e.getRawStatusCode()));
 		}
