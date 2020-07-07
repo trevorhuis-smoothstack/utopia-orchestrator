@@ -60,10 +60,10 @@ public class AgentOrchestrator {
 		}
 	}
 
-	@GetMapping(path = "/users/{username}")
+	@GetMapping(path = "/user/{username}")
 	public ResponseEntity<User> readUser(@PathVariable String username, RequestEntity<?> request) {
 		try {
-			return restTemplate.exchange(agentBase + "/users/" + username, HttpMethod.GET, request, User.class);
+			return restTemplate.exchange(agentBase + "/user/" + username, HttpMethod.GET, request, User.class);
 		} catch (RestClientResponseException e) {
 			return new ResponseEntity<User>((User) null, HttpStatus.valueOf(e.getRawStatusCode()));
 		}
