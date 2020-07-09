@@ -16,9 +16,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestClientResponseException;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.UriComponentsBuilder;
 
 /**
  * @author Trevor Huis in 't Veld
@@ -28,15 +30,32 @@ import org.springframework.web.client.RestTemplate;
 @RequestMapping("/agent")
 public class AgentOrchestrator {
 
-    private final String agentBase = "http://localhost:8082/agent";
+	private final String agentBase = "http://localhost:8082/agent";
 
-    @Autowired
+	@Autowired
 	RestTemplate restTemplate;
-    
-    @GetMapping(path = "/flights")
-	public ResponseEntity<Flight[]> readFlights(RequestEntity<?> request) {
+
+	@GetMapping(path = "/flights")
+	public ResponseEntity<Flight[]> readFlights(RequestEntity<?> request, @RequestParam() Float price,
+			@RequestParam(required = false) String departId, @RequestParam(required = false) String arriveId,
+			@RequestParam(required = false) String dateBegin, @RequestParam(required = false) String dateEnd) {
+
+		UriComponentsBuilder uriBuilder = UriComponentsBuilder.fromHttpUrl(agentBase + "/flights")
+				.queryParam("price", price).queryParam("departId", departId).queryParam("arriveId", arriveId)
+				.queryParam("dateBegin", dateBegin).queryParam("dateEnd", dateEnd);
+
 		try {
-			return restTemplate.exchange(agentBase + "/flights", HttpMethod.GET, request, Flight[].class);
+			return restTemplate.exchange(uriBuilder.toUriString(), HttpMethod.GET, request, Flight[].class);
+		} catch (RestClientResponseException e) {
+			return new ResponseEntity<Flight[]>((Flight[]) null, HttpStatus.valueOf(e.getRawStatusCode()));
+		}
+	}
+
+	@GetMapping(path = "/flights/premier")
+	public ResponseEntity<Flight[]> readFlights(RequestEntity<?> request) {
+
+		try {
+			return restTemplate.exchange(agentBase + "/flights/premier", HttpMethod.GET, request, Flight[].class);
 		} catch (RestClientResponseException e) {
 			return new ResponseEntity<Flight[]>((Flight[]) null, HttpStatus.valueOf(e.getRawStatusCode()));
 		}
@@ -51,12 +70,14 @@ public class AgentOrchestrator {
 		}
 	}
 
-	@GetMapping(path = "/bookings/{agentId}")
-	public ResponseEntity<Booking[]> readBookings(@PathVariable Long agentId, RequestEntity<?> request) {
+	@GetMapping(path = "/flights/{agentId}/traveler/{travelerId}")
+	public ResponseEntity<Flight[]> readBookingsByAgentAndTraveler(@PathVariable Long agentId,
+			@PathVariable Long travelerId, RequestEntity<?> request) {
 		try {
-			return restTemplate.exchange(agentBase + "/bookings/" + agentId, HttpMethod.GET, request, Booking[].class);
+			return restTemplate.exchange(agentBase + "/flights/" + agentId + "/traveler/" + travelerId, HttpMethod.GET,
+					request, Flight[].class);
 		} catch (RestClientResponseException e) {
-			return new ResponseEntity<Booking[]>((Booking[]) null, HttpStatus.valueOf(e.getRawStatusCode()));
+			return new ResponseEntity<Flight[]>((Flight[]) null, HttpStatus.valueOf(e.getRawStatusCode()));
 		}
 	}
 
