@@ -60,12 +60,39 @@ public class AgentOrchestrator {
 		}
 	}
 
-	@GetMapping(path = "/user/{username}")
+	@GetMapping(path = "/user/username/{username}")
 	public ResponseEntity<User> readUser(@PathVariable String username, RequestEntity<?> request) {
 		try {
-			return restTemplate.exchange(agentBase + "/user/" + username, HttpMethod.GET, request, User.class);
+			return restTemplate.exchange(agentBase + "/user/username/" + username, HttpMethod.GET, request, User.class);
 		} catch (RestClientResponseException e) {
 			return new ResponseEntity<User>((User) null, HttpStatus.valueOf(e.getRawStatusCode()));
+		}
+	}
+
+	@GetMapping(path = "/traveler/{username}")
+	public ResponseEntity<User> readTraveler(@PathVariable String username, RequestEntity<?> request) {
+		try {
+			return restTemplate.exchange(agentBase + "/traveler/" + username, HttpMethod.GET, request, User.class);
+		} catch (RestClientResponseException e) {
+			return new ResponseEntity<User>((User) null, HttpStatus.valueOf(e.getRawStatusCode()));
+		}
+	}
+
+	@GetMapping(path = "/user/id/{userId}")
+	public ResponseEntity<User> readUserById(@PathVariable Long userId, RequestEntity<?> request) {
+		try {
+			return restTemplate.exchange(agentBase + "/user/id/" + userId, HttpMethod.GET, request, User.class);
+		} catch (RestClientResponseException e) {
+			return new ResponseEntity<User>((User) null, HttpStatus.valueOf(e.getRawStatusCode()));
+		}
+	}
+
+	@GetMapping(path = "/flight/{flightId}")
+	public ResponseEntity<Flight> readFlight(@PathVariable Long flightId, RequestEntity<?> request) {
+		try {
+			return restTemplate.exchange(agentBase + "/flight/" + flightId, HttpMethod.GET, request, Flight.class);
+		} catch (RestClientResponseException e) {
+			return new ResponseEntity<Flight>((Flight) null, HttpStatus.valueOf(e.getRawStatusCode()));
 		}
 	}
 
