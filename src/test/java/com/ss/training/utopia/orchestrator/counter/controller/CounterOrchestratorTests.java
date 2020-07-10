@@ -25,30 +25,30 @@ import org.springframework.web.client.RestTemplate;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ss.training.utopia.orchestrator.controller.BeanConfig;
 
-/**
- * @author Justin O'Brien
- */
-//@RunWith(SpringRunner.class)
-@WebMvcTest(CounterOrchestrator.class)
-@AutoConfigureMockMvc(addFilters = false)
-@ContextConfiguration(classes = { BeanConfig.class })
-public class CounterOrchestratorTests {
+// /**
+//  * @author Justin O'Brien
+//  */
+// //@RunWith(SpringRunner.class)
+// @WebMvcTest(CounterOrchestrator.class)
+// @AutoConfigureMockMvc(addFilters = false)
+// @ContextConfiguration(classes = { BeanConfig.class })
+// public class CounterOrchestratorTests {
 
-	@Autowired
-	private MockMvc mvc;
-	@Autowired
-	private ObjectMapper mapper;
-	@Autowired
-	private RestTemplate template;
+// 	@Autowired
+// 	private MockMvc mvc;
+// 	@Autowired
+// 	private ObjectMapper mapper;
+// 	@Autowired
+// 	private RestTemplate template;
 
-	private final String baseUrl = "http://localhost:8081";
+// 	private final String baseUrl = "http://localhost:8081";
 
-	private MockRestServiceServer server;
+// 	private MockRestServiceServer server;
 
-	@BeforeEach
-	public void before() {
-		server = MockRestServiceServer.createServer(template);
-	}
+// 	@BeforeEach
+// 	public void before() {
+// 		server = MockRestServiceServer.createServer(template);
+// 	}
 
 //	@Test
 //	public void userIsTravelerTest() throws Exception {
@@ -58,4 +58,4 @@ public class CounterOrchestratorTests {
 //		mvc.perform(head(uri)).andExpect(status().isNoContent()).andExpect(content().string(""));
 //	}
 
-}
+//}

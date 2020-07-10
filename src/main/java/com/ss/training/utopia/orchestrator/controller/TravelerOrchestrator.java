@@ -134,5 +134,12 @@ public class TravelerOrchestrator {
 		}
 	}
 	
-
+	@GetMapping( path = "/authorized")
+	public ResponseEntity<Object> checkAuthorization(){
+		try {
+			return new ResponseEntity<Object>(null, HttpStatus.NO_CONTENT);
+		} catch (RestClientResponseException e) {
+			return new ResponseEntity<Object>(null, HttpStatus.valueOf(e.getRawStatusCode()));
+		}
+	}
 }

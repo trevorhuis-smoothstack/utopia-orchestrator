@@ -1,4 +1,4 @@
-package com.ss.training.utopia.orchestrator.counter.controller;
+package com.ss.training.utopia.orchestrator.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
@@ -20,7 +20,7 @@ import org.springframework.web.client.RestTemplate;
 import com.ss.training.utopia.orchestrator.entity.Airport;
 import com.ss.training.utopia.orchestrator.entity.Booking;
 import com.ss.training.utopia.orchestrator.entity.Flight;
-import com.ss.training.utopia.orchestrator.security.User;
+import com.ss.training.utopia.orchestrator.entity.User;
 
 /**
  * @author Justin O'Brien
@@ -35,7 +35,7 @@ public class CounterOrchestrator {
 
 	private final String baseUrl = "http://localhost:8081/counter";
 
-	@RequestMapping(method = RequestMethod.HEAD, path = "/traveler/{username}")
+	@RequestMapping(/*method = RequestMethod.HEAD,*/ path = "/traveler/{username}")
 	public ResponseEntity<Object> userIsTraveler(@PathVariable String username, RequestEntity<?> request) {
 		try {
 			return template.exchange(baseUrl + "/traveler/" + username, HttpMethod.HEAD, request, Object.class);
@@ -93,7 +93,7 @@ public class CounterOrchestrator {
 		}
 	}
 
-	@RequestMapping(method = RequestMethod.HEAD, path = "/user/{username}")
+	@RequestMapping(/*method = RequestMethod.HEAD,*/ path = "/user/{username}")
 	public ResponseEntity<Object> usernameAvailable(@PathVariable String username, RequestEntity<?> request) {
 		try {
 			return template.exchange(baseUrl + "/user/" + username, HttpMethod.HEAD, request, Object.class);
@@ -122,7 +122,7 @@ public class CounterOrchestrator {
 		}
 	}
 	
-	@RequestMapping(method = RequestMethod.HEAD, path = "/authorized")
+	@RequestMapping(/*method = RequestMethod.HEAD,*/ path = "/authorized")
 	public ResponseEntity<Object> checkAuthorization(){
 		try {
 			return new ResponseEntity<Object>(null, HttpStatus.NO_CONTENT);

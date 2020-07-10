@@ -1,4 +1,5 @@
-package com.ss.training.utopia.orchestrator.counter.security;
+package com.ss.training.utopia.orchestrator.security;
+
 import static com.auth0.jwt.algorithms.Algorithm.HMAC512;
 
 import java.io.IOException;
@@ -8,6 +9,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.auth0.jwt.JWT;
+import com.ss.training.utopia.orchestrator.entity.User;
+
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -15,21 +19,19 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
-import com.auth0.jwt.JWT;
-import com.ss.training.utopia.orchestrator.security.User;
 
 /**
- * @author Justin O'Brien
+ * @author Trevor Huis in 't Veld
  */
 public class AuthorizationFilter extends BasicAuthenticationFilter {
 
-	private UserRepositoryCounter userRepository;
+	private UserRepository userRepository;
 
 	/**
 	 * @param authenticationManager
 	 * @param userRepository
 	 */
-	public AuthorizationFilter(AuthenticationManager authenticationManager, UserRepositoryCounter userRepository) {
+	public AuthorizationFilter(AuthenticationManager authenticationManager, UserRepository userRepository) {
 		super(authenticationManager);
 		this.userRepository = userRepository;
 	}
