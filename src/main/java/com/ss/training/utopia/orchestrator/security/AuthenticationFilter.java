@@ -1,4 +1,4 @@
-package com.ss.training.utopia.orchestrator.security.h;
+package com.ss.training.utopia.orchestrator.security;
 
 import static com.auth0.jwt.algorithms.Algorithm.HMAC512;
 
@@ -13,9 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.auth0.jwt.JWT;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.ss.training.utopia.orchestrator.security.JwtProperties;
-import com.ss.training.utopia.orchestrator.security.UserCredentials;
-import com.ss.training.utopia.orchestrator.security.UserDetailsClass;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

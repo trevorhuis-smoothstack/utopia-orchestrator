@@ -1,4 +1,4 @@
-package com.ss.training.utopia.orchestrator.counter.controller;
+package com.ss.training.utopia.orchestrator.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;

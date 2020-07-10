@@ -1,4 +1,4 @@
-package com.ss.training.utopia.orchestrator.security.h;
+package com.ss.training.utopia.orchestrator.security;
 
 import static com.auth0.jwt.algorithms.Algorithm.HMAC512;
 
@@ -10,10 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.auth0.jwt.JWT;
-import com.ss.training.utopia.orchestrator.security.JwtProperties;
-import com.ss.training.utopia.orchestrator.security.User;
-import com.ss.training.utopia.orchestrator.security.UserDetailsClass;
-import com.ss.training.utopia.orchestrator.security.UserRepository;
 
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

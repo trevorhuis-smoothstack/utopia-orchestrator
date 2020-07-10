@@ -1,11 +1,10 @@
-package com.ss.training.utopia.orchestrator.security.h;
+package com.ss.training.utopia.orchestrator.security;
 
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.annotation.Order;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -18,16 +17,13 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-import com.ss.training.utopia.orchestrator.security.UserDetailsServiceClass;
-import com.ss.training.utopia.orchestrator.security.UserRepository;
 
 /**
  * @author Trevor Huis in 't Veld
  */
 @Configuration
-@Order(2)
 @EnableWebSecurity
-public class SecurityConfigurationAgent extends WebSecurityConfigurerAdapter {
+public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	@Autowired
 	UserDetailsServiceClass userDetailsService;
@@ -45,8 +41,9 @@ public class SecurityConfigurationAgent extends WebSecurityConfigurerAdapter {
 		httpSecurity.cors().and().csrf().disable().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
 				.addFilter(new AuthenticationFilter(authenticationManager()))
 				.addFilter(new AuthorizationFilter(authenticationManager(), this.userRepository)).authorizeRequests()
-				.antMatchers("/agent/*").hasRole("AGENT")
-				.antMatchers("/agent/*/*").hasRole("AGENT").and().httpBasic();
+				.antMatchers("/counter/**").hasRole("COUNTER")
+				.antMatchers("/traveler/**").hasRole("TRAVELER")
+				.antMatchers("/agent/**").hasRole("AGENT").and().httpBasic();
 	}
 
 	/**
@@ -72,7 +69,7 @@ public class SecurityConfigurationAgent extends WebSecurityConfigurerAdapter {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOrigins(Arrays.asList("*"));
-        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
+        configuration.setAllowedMethods(Arrays.asList("HEAD", "GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(Arrays.asList("authorization", "content-type", "x-auth-token"));
         configuration.setExposedHeaders(Arrays.asList("authorization"));
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
