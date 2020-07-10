@@ -2,6 +2,8 @@ package com.ss.training.utopia.orchestrator.security;
 
 import java.util.Optional;
 
+import com.ss.training.utopia.orchestrator.entity.User;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

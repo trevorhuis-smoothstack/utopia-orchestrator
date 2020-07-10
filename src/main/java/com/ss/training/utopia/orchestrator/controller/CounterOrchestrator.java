@@ -20,7 +20,7 @@ import org.springframework.web.client.RestTemplate;
 import com.ss.training.utopia.orchestrator.entity.Airport;
 import com.ss.training.utopia.orchestrator.entity.Booking;
 import com.ss.training.utopia.orchestrator.entity.Flight;
-import com.ss.training.utopia.orchestrator.security.User;
+import com.ss.training.utopia.orchestrator.entity.User;
 
 /**
  * @author Justin O'Brien
