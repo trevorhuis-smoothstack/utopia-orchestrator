@@ -70,6 +70,18 @@ public class AgentOrchestrator {
 		}
 	}
 
+	@GetMapping(path = "/flights/{agentId}/traveler/{travelerId}")
+	public ResponseEntity<Flight[]> readBookingsByAgentAndTraveler(@PathVariable Long agentId,
+			@PathVariable Long travelerId, RequestEntity<?> request) {
+		try {
+			return restTemplate.exchange(agentBase + "/flights/" + agentId + "/traveler/" + travelerId, HttpMethod.GET,
+					request, Flight[].class);
+		} catch (RestClientResponseException e) {
+			return new ResponseEntity<Flight[]>((Flight[]) null, HttpStatus.valueOf(e.getRawStatusCode()));
+		}
+	}
+
+
 	@GetMapping(path = "/bookings/{agentId}")
 	public ResponseEntity<Booking[]> readBookings(@PathVariable Long agentId, RequestEntity<?> request) {
 		try {
