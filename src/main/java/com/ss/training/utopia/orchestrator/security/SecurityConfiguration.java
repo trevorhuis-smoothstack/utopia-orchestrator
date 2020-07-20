@@ -42,6 +42,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.addFilter(new AuthenticationFilter(authenticationManager()))
 				.addFilter(new AuthorizationFilter(authenticationManager(), this.userRepository)).authorizeRequests()
 				.antMatchers("/counter/**").hasRole("COUNTER")
+				.antMatchers("/traveler/users").permitAll()
+				.antMatchers("/traveler/users/*").permitAll()
 				.antMatchers("/traveler/**").hasRole("TRAVELER")
 				.antMatchers("/agent/**").hasRole("AGENT").and().httpBasic();
 	}
