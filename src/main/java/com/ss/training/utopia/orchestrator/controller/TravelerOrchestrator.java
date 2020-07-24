@@ -142,4 +142,8 @@ public class TravelerOrchestrator {
 			return new ResponseEntity<Object>(null, HttpStatus.valueOf(e.getRawStatusCode()));
 		}
 	}
+	
+	@GetMapping(path="/user/hi")
+	public ResponseEntity<String> test(){
+		return new ResponseEntity<String>("hi", HttpStatus.OK);
 }
