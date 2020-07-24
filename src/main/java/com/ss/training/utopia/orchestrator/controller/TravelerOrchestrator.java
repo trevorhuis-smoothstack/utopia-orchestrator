@@ -146,4 +146,5 @@ public class TravelerOrchestrator {
 	@GetMapping(path="/user/hi")
 	public ResponseEntity<String> test(){
 		return new ResponseEntity<String>("hi", HttpStatus.OK);
+	}
 }
