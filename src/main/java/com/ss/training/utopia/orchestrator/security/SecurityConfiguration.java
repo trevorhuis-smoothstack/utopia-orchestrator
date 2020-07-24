@@ -45,7 +45,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.antMatchers("/traveler/users").permitAll()
 				.antMatchers("/traveler/users/*").permitAll()
 				.antMatchers("/traveler/**").hasRole("TRAVELER")
+				.antMatchers("/hi").permitAll()
 				.antMatchers("/agent/**").hasRole("AGENT").and().httpBasic();
+				
 	}
 
 	/**
