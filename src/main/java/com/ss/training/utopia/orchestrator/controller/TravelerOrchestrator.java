@@ -143,7 +143,7 @@ public class TravelerOrchestrator {
 		}
 	}
 	
-	@GetMapping(path="/user/hi")
+	@GetMapping(path="/hi")
 	public ResponseEntity<String> test(){
 		return new ResponseEntity<String>("hi", HttpStatus.OK);
 	}
